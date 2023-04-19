@@ -29,13 +29,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public User getById(Long id) {
         return userDao.getById(id);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<User> listUsers() {
         return userDao.findAll();
     }
@@ -48,7 +46,6 @@ public class UserServiceImpl implements UserService {
             return false;
         }
         user.setPassword(bCryptPasswordEncoder().encode(user.getPassword()));
-        System.out.println(user);
         Set<Role> roleList = listByName(user.getRoles().stream().map(Role::getRole).collect(Collectors.toList()));
         user.setRoles(roleList);
         userDao.save(user);
