@@ -17,6 +17,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -45,7 +46,7 @@ public class User implements UserDetails {
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private List<Role> roles;
+    private Set<Role> roles;
 
     public User() {
     }
@@ -56,7 +57,7 @@ public class User implements UserDetails {
         this.age = age;
     }
 
-    public User(String password, String name, String surname, int age, List<Role> roles) {
+    public User(String password, String name, String surname, int age, Set<Role> roles) {
         this.password = password;
         this.name = name;
         this.surname = surname;
@@ -64,7 +65,7 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-    public User(Long id, String password, String name, String surname, int age, List<Role> roles) {
+    public User(Long id, String password, String name, String surname, int age, Set<Role> roles) {
         this.id = id;
         this.password = password;
         this.name = name;
@@ -105,11 +106,11 @@ public class User implements UserDetails {
         this.age = age;
     }
 
-    public List<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 

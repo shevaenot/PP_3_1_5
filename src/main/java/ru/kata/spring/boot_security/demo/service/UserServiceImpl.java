@@ -10,6 +10,7 @@ import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,8 +49,7 @@ public class UserServiceImpl implements UserService {
         }
         user.setPassword(bCryptPasswordEncoder().encode(user.getPassword()));
         System.out.println(user);
-        List<String> list = user.getRoles().stream().map(Role::getRole).collect(Collectors.toList());
-        List<Role> roleList = listByRole(list);
+        Set<Role> roleList = listByName(user.getRoles().stream().map(Role::getRole).collect(Collectors.toList()));
         user.setRoles(roleList);
         userDao.save(user);
         return true;
@@ -68,8 +68,7 @@ public class UserServiceImpl implements UserService {
         if (!userBase.getPassword().equals(user.getPassword())) {
             user.setPassword(bCryptPasswordEncoder().encode(user.getPassword()));
         }
-        List<String> list = user.getRoles().stream().map(Role::getRole).collect(Collectors.toList());
-        List<Role> roleList = listByRole(list);
+        Set<Role> roleList = listByName(user.getRoles().stream().map(Role::getRole).collect(Collectors.toList()));
         user.setRoles(roleList);
         userDao.save(user);
     }
@@ -80,7 +79,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Role> listByRole(List<String> name) {
+    public Set<Role> listByName(List<String> name) {
         return roleDao.listByName(name);
     }
 
