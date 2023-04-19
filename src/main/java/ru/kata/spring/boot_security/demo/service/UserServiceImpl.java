@@ -74,16 +74,14 @@ public class UserServiceImpl implements UserService {
         userDao.save(user);
     }
 
+    @Override
     public User findByName(String userName) {
         return userDao.findByName(userName);
     }
 
+    @Override
     public List<Role> listByRole(List<String> name) {
         return roleDao.listByName(name);
-    }
-
-    public List<Role> listRoles() {
-        return roleDao.findAll();
     }
 
 }
